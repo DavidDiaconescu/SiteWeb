@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Statistici Vizitatori - ExpoAuto</title>
+  <link rel="stylesheet" href="Gauge.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .gauge-container {
+      width: 300px;
+      margin: 20px auto;
+    }
+    .button-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button-list button {
+      background-color: #ffa726;
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+    .button-list button:hover {
+      background-color: #fb8c00;
+    }
+  </style>
+</head>
+<body bgcolor="white">
+<center>
+  <table border="0" width="100%" bgcolor="#333333" style="color:white;">
+    <tr>
+      <td align="left"><img src="BroscutaEpoca.jpg" width="100"></td>
+      <td align="center">
+        <h1 style="color:white; font-style:italic; font-size:18px;">
+          ExpoAuto - Cea mai mare colectie de masini de epoca din Transilvania!
+        </h1>
+      </td>
+      <td align="right">
+        <a href="Register.html" style="color: white;">Creare cont</a> |
+        <a href="Authentification.html" style="color: white;">Logare</a>
+      </td>
+    </tr>
+  </table>
+
+  <p>Vizitatori în ultimii 10 ani:</p>
+
+  <div class="gauge-container">
+    <canvas id="gaugeChart"></canvas>
+    <div id="gaugeValue" style="margin-top:10px; font-weight:bold;"></div>
+  </div>
+
+  <div class="button-list" id="yearButtons">
+    <!-- Butoanele vor fi generate din JavaScript -->
+  </div>
+
+  <input type="checkbox" id="menu-toggle" class="menu-toggle">
+  <label for="menu-toggle" class="menu-button">MENIU</label>
+
+  <div class="menu-box">
+    <ul>
+      <li><a href="MainPage.php"><i class="fas fa-house"></i> Acasă</a></li>
+      <li>
+        <a href="#"><i class="fas fa-car"></i> Vezi toate mașinile</a>
+        <ul class="sub-menu">
+          <li><a href="CarList.html"><i class="fas fa-list"></i> Lista completă</a></li>
+          <li><a href="VWBeetle.html"><i class="fas fa-bug"></i> VW Beetle</a></li>
+          <li><a href="Cadillac.html"><i class="fas fa-car-side"></i> Cadillac V12</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</center>
+
+<footer align="center" style="background-color: #333333; color: white; border-top: 1px solid #000; padding: 20px 0;">
+  <p>&copy; 2025 ExpoAuto. Toate drepturile rezervate.</p>
+  <p>Email: contact@expoauto.com | Telefon: +40 756 320 944</p>
+</footer>
+
+<script>
+  const visitorsPerYear = {
+    2015: 13000,
+    2016: 14500,
+    2017: 16000,
+    2018: 7500,
+    2019: 20000,
+    2020: 18500,
+    2021: 210000,
+    2022: 22000,
+    2023: 25000,
+    2024: 158000
+  };
+
+  const totalVisitors = Object.values(visitorsPerYear).reduce((a, b) => a + b, 0);
+
+  // Generare butoane
+  const buttonContainer = document.getElementById('yearButtons');
+  for (const year in visitorsPerYear) {
+    const btn = document.createElement('button');
+    btn.innerText = `${year}: ${visitorsPerYear[year].toLocaleString()} vizitatori`;
+    btn.onclick = () => updateGauge(visitorsPerYear[year], year);
+    buttonContainer.appendChild(btn);
+  }
+
+  // Gauge Chart.js
+  const ctx = document.getElementById('gaugeChart').getContext('2d');
+  let gaugeChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      datasets: [{
+        data: [0, 100],
+        backgroundColor: ['#ef5350', '#e0e0e0'],
+        borderWidth: 0
+      }]
+    },
+    options: {
+      circumference: 180,
+      rotation: 270,
+      cutout: '70%',
+      plugins: {
+        tooltip: {enabled: false},
+        legend: {display: false}
+      }
+    }
+  });
+
+  function updateGauge(value, year) {
+    const percentage = ((value / totalVisitors) * 100).toFixed(2);
+    gaugeChart.data.datasets[0].data[0] = percentage;
+    gaugeChart.data.datasets[0].data[1] = 100 - percentage;
+    gaugeChart.update();
+
+    document.getElementById('gaugeValue').innerText = `${year}: ${percentage}% din total`;
+  }
+
+  updateGauge(Object.values(visitorsPerYear)[0], Object.keys(visitorsPerYear)[0]); // Inițial
+</script>
+
+</body>
+</html>

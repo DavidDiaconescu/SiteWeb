@@ -1,0 +1,174 @@
+/* Resetare stiluri implicite */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* BODY */
+body {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+/* HEADER */
+table {
+  background-color: #333;
+  color: white;
+  padding: 10px 0;
+}
+
+table img {
+  margin-left: 10px;
+}
+
+h1 {
+  font-size: 22px;
+  font-style: italic;
+}
+
+/* LINKURI HEADER */
+td a {
+  color: white;
+  text-decoration: none;
+  margin: 0 5px;
+}
+
+td a:hover {
+  text-decoration: underline;
+}
+
+/* MENIU DROPDOWN */
+.menu-toggle {
+  display: none;
+}
+
+.menu-button {
+  display: inline-block;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.menu-box {
+  display: none;
+  background-color: #444;
+  margin-top: 10px;
+  border-radius: 5px;
+  width: 220px;
+}
+
+.menu-box ul {
+  list-style: none;
+  padding: 0;
+}
+
+.menu-box li {
+  border-bottom: 1px solid #555;
+}
+
+.menu-box li:last-child {
+  border-bottom: none;
+}
+
+.menu-box a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.menu-box a:hover {
+  background-color: #555;
+}
+
+/* SUB-MENU */
+.sub-menu {
+  display: none;
+  background-color: #555;
+}
+
+.menu-box li:hover > .sub-menu {
+  display: block;
+  position: relative;
+}
+
+.menu-box li ul li a {
+  padding-left: 30px;
+}
+
+/* ACTIVARE MENIU */
+#menu-toggle:checked + .menu-button + .menu-box {
+  display: block;
+}
+
+/* FOOTER */
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 20px 10px;
+  font-size: 14px;
+}
+
+/* GAUGE CONTAINER */
+.gauge-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-top: 30px;
+  width: 350px;
+}
+
+/* BUTTON LIST */
+.button-list {
+  margin: 20px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.button-list button {
+  background-color: #ffa726;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+}
+
+.button-list button:hover {
+  background-color: #fb8c00;
+}
+
+/* RESPONSIVE */
+@media screen and (max-width: 768px) {
+  .gauge-container {
+    width: 90%;
+  }
+
+  h1 {
+    font-size: 16px;
+    padding: 0 10px;
+  }
+
+  table td {
+    display: block;
+    text-align: center;
+  }
+
+  .menu-box {
+    width: 100%;
+  }
+}
